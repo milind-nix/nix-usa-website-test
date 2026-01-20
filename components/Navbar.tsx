@@ -20,7 +20,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
 
   const navLinks = [
     { href: "/about", label: "About" },
-    { href: "/team-background", label: "Our Technologies" },
+    { href: "#", label: "Our Technologies" },
     { href: "/our-team", label: "Our Team" },
     { href: "/case-studies", label: "Case Studies" },
     { href: "/career", label: "Career" },
@@ -32,11 +32,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <img
-              src={logo}
-              alt="Neuralix.ai"
-              className="h-8 w-auto"
-            />
+            <img src={logo} alt="Neuralix.ai" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -53,7 +49,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
               className={`${textColor} ${hoverText} ${hoverBg}`}
               asChild
             >
-              <Link href="/team-background">Team background</Link>
+              <Link href="#">Team background</Link>
             </Button>
             <Button
               variant="ghost"
@@ -81,13 +77,13 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
               className={`${textColor} ${hoverText} ${hoverBg}`}
               asChild
             >
-              <Link href="/contact">Contact</Link>
+              <Link href="#">Contact</Link>
             </Button>
             <Button
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"
               asChild
             >
-              <Link href="/speak-with-us">Speak with us</Link>
+              <Link href="#">Speak with us</Link>
             </Button>
           </div>
 

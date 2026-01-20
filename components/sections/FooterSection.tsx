@@ -10,11 +10,11 @@ export default function FooterSection() {
           {/* Logo and Copyright */}
           <div className="flex flex-col gap-2 mb-6">
             <img
-              src="/footer-logo.svg"
+              src="/footer-logo-new.svg"
               alt="Neuralix.ai"
               className="h-8 w-auto"
             />
-            <p className="text-gray-400 text-sm">© 2024 neuralix.ai</p>
+            <p className="text-gray-400 text-sm">© 2026 neuralix.ai</p>
           </div>
 
           {/* Social Media Icons */}
@@ -195,11 +195,11 @@ export default function FooterSection() {
                 {/* Left - Logo and Copyright */}
                 <div className="flex flex-col gap-3">
                   <img
-                    src="/footer-logo.svg"
+                    src="/footer-logo-new.svg"
                     alt="Neuralix.ai"
                     className="h-8 w-auto"
                   />
-                  <p className="text-gray-400 text-sm">© 2024 neuralix.ai</p>
+                  <p className="text-gray-400 text-sm">© 2026 neuralix.ai</p>
                 </div>
 
                 {/* Center - Social Media Icons */}
