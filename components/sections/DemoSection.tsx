@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function DemoSection() {
@@ -15,6 +15,9 @@ export default function DemoSection() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const countryCodes = [
     { code: "+1", country: "US" },
@@ -27,7 +30,7 @@ export default function DemoSection() {
     { code: "+61", country: "AU" },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
@@ -46,8 +49,49 @@ export default function DemoSection() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Handle form submission
-      console.log("Form submitted:", formData);
+      setIsSubmitting(true);
+      setSubmitStatus("idle");
+      setSubmitMessage("");
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            countryCode: formData.countryCode,
+            message: formData.message,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.status === "ok") {
+          setSubmitStatus("success");
+          setSubmitMessage("Thank you! We'll be in touch soon.");
+          // Reset form
+          setFormData({
+            fullName: "",
+            email: "",
+            countryCode: "+1",
+            phone: "",
+            message: "",
+            agreeToPolicy: false,
+          });
+        } else {
+          setSubmitStatus("error");
+          setSubmitMessage(data.reason || "Something went wrong. Please try again.");
+        }
+      } catch {
+        setSubmitStatus("error");
+        setSubmitMessage("Failed to send message. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -189,12 +233,34 @@ export default function DemoSection() {
                 <p className="text-red-500 text-sm -mt-4">{errors.agreeToPolicy}</p>
               )}
 
+              {/* Submit Status Message */}
+              {submitMessage && (
+                <div
+                  className={`flex items-center gap-2 p-4 rounded-lg ${
+                    submitStatus === "success"
+                      ? "bg-green-50 text-green-700"
+                      : "bg-red-50 text-red-700"
+                  }`}
+                >
+                  {submitStatus === "success" && <CheckCircle className="w-5 h-5" />}
+                  <p>{submitMessage}</p>
+                </div>
+              )}
+
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-8 py-3 text-base"
+                disabled={isSubmitting}
+                className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-8 py-3 text-base disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Submit
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </form>
           </div>
