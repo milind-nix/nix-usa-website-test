@@ -21,7 +21,7 @@ const caseStudies: CaseStudy[] = [
     category: "Utilities",
     description:
       "How AI-driven pump optimization and predictive intelligence transformed midstream water management across 40+ facilities.",
-    image: "/case-studies/midstream-waters.png",
+    image: "/case-study-img.svg",
     tag: "Midstream Waters",
   },
   {
@@ -30,7 +30,7 @@ const caseStudies: CaseStudy[] = [
     category: "Utilities",
     description:
       "Reducing emergency repair costs and production disruptions through a fleet-wide proactive intervention strategy.",
-    image: "/case-studies/midstream-waters-2.png",
+    image: "/case-study-img.svg",
     tag: "Midstream Waters",
   },
   {
@@ -39,7 +39,7 @@ const caseStudies: CaseStudy[] = [
     category: "Energy",
     description:
       "Replacing reactive workovers with explainable AI to differentiate sensor malfunctions from critical wellbore blockages at scale.",
-    image: "/case-studies/oil-well.png",
+    image: "/case-study-img.svg",
     tag: "Oil & Gas",
   },
 ];

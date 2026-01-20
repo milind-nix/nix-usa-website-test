@@ -10,19 +10,19 @@ const caseStudies = [
   {
     id: "maximizing-midstream-margins",
     title: "Maximizing Midstream Margins via Operational Excellence",
-    image: "/case-studies/midstream-waters.png",
+    image: "/case-study-img.svg",
     tag: "Midstream Waters",
   },
   {
     id: "securing-midstream-reliability",
     title: "Securing Midstream Reliability via RUL Analytics",
-    image: "/case-studies/midstream-waters-2.png",
+    image: "/case-study-img.svg",
     tag: "Midstream Waters",
   },
   {
     id: "protecting-100m-revenue",
     title: "Protecting $100M in Annual Revenue per Oil Well",
-    image: "/case-studies/oil-well.png",
+    image: "/case-study-img.svg",
     tag: "Oil & Gas",
   },
 ];
@@ -34,7 +34,7 @@ const caseStudyData: Record<string, any> = {
     title: "Protecting $100M in Annual Revenue per Oil Well",
     subtitle:
       "Replacing reactive workovers with explainable AI to differentiate sensor malfunctions from critical wellbore blockages at scale.",
-    heroImage: "/case-studies/oil-well-hero.png",
+    heroImage: "/case-study-img.svg",
     category: "Energy",
     overview:
       "We are seeking an experienced Senior Software Engineer with a strong background in the Python & React stack to join our growing team. In this role, you will lead the development of key systems, mentor a talented group of engineers, and play a pivotal role in shaping the technical direction of our products.",
@@ -93,7 +93,7 @@ const caseStudyData: Record<string, any> = {
     title: "Maximizing Midstream Margins via Operational Excellence",
     subtitle:
       "How AI-driven pump optimization and predictive intelligence transformed midstream water management across 40+ facilities.",
-    heroImage: "/case-studies/midstream-waters.png",
+    heroImage: "/case-study-img.svg",
     category: "Utilities",
     overview:
       "A leading midstream water management company needed to optimize operations across 40+ facilities to reduce costs and improve efficiency while maintaining service quality.",
@@ -151,7 +151,7 @@ const caseStudyData: Record<string, any> = {
     title: "Securing Midstream Reliability via RUL Analytics",
     subtitle:
       "Reducing emergency repair costs and production disruptions through a fleet-wide proactive intervention strategy.",
-    heroImage: "/case-studies/midstream-waters-2.png",
+    heroImage: "/case-study-img.svg",
     category: "Utilities",
     overview:
       "A major midstream operator faced significant challenges with unexpected equipment failures leading to costly emergency repairs and production disruptions.",
@@ -234,13 +234,25 @@ export default function CaseStudyDetailPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="bg-gray-50 py-20 md:py-32">
+      <section className="bg-white py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            {/* Left - Title and Description */}
-            <div>
-              <div className="border-l-4 border-teal-500 pl-6 mb-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            {/* Left - Title and Description with L-shaped borders */}
+            <div className="relative">
+              {/* Top-left L-shaped teal accent */}
+              <div className="absolute -top-4 -left-4 w-16 h-16">
+                <div className="absolute top-0 left-0 w-full h-4 bg-teal-500"></div>
+                <div className="absolute top-0 left-0 w-4 h-full bg-teal-500"></div>
+              </div>
+
+              {/* Bottom-right L-shaped teal accent */}
+              <div className="absolute -bottom-4 -right-4 w-24 h-16">
+                <div className="absolute bottom-0 right-0 w-full h-2 bg-teal-500"></div>
+                <div className="absolute bottom-0 right-0 w-2 h-full bg-teal-500"></div>
+              </div>
+
+              <div className="pl-8 pt-8 pb-8 pr-8">
+                <h1 className="text-4xl md:text-5xl font-bold text-[#0A2540] mb-6 leading-tight">
                   {caseStudy.title}
                 </h1>
                 <p className="text-lg text-gray-600 leading-relaxed">
@@ -250,12 +262,14 @@ export default function CaseStudyDetailPage() {
             </div>
 
             {/* Right - Hero Image */}
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src={caseStudy.heroImage}
-                alt={caseStudy.title}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden">
+                <img
+                  src={caseStudy.heroImage}
+                  alt={caseStudy.title}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -312,10 +326,7 @@ export default function CaseStudyDetailPage() {
                         </h3>
                         <ul className="space-y-2">
                           {phase.items.map((item: string, idx: number) => (
-                            <li
-                              key={idx}
-                              className="flex gap-3 text-gray-700"
-                            >
+                            <li key={idx} className="flex gap-3 text-gray-700">
                               <span className="text-teal-500 font-bold flex-shrink-0">
                                 •
                               </span>
@@ -335,16 +346,14 @@ export default function CaseStudyDetailPage() {
                   {caseStudy.impact.title}
                 </h2>
                 <ul className="space-y-3">
-                  {caseStudy.impact.items.map(
-                    (item: string, index: number) => (
-                      <li key={index} className="flex gap-3 text-gray-700">
-                        <span className="text-teal-500 font-bold flex-shrink-0">
-                          •
-                        </span>
-                        <span className="font-medium">{item}</span>
-                      </li>
-                    )
-                  )}
+                  {caseStudy.impact.items.map((item: string, index: number) => (
+                    <li key={index} className="flex gap-3 text-gray-700">
+                      <span className="text-teal-500 font-bold flex-shrink-0">
+                        •
+                      </span>
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
