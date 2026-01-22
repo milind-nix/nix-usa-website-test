@@ -5,18 +5,16 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <div className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm">
-        <Navbar />
-      </div>
+      <Navbar />
 
       {/* Hero Section with Background Image and Gradient */}
       <section className="relative h-screen w-full max-md:h-[80vh]">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/about-us-hero.png"
+            src="/about-us-main.webp"
             alt="Industrial operations control room"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-50"
           />
         </div>
 
@@ -62,7 +60,7 @@ export default function AboutPage() {
               </p>
               <p>
                 Our platform was designed from day one to adapt to real
-                operating conditions ,delivering intelligence that teams can
+                operating conditions, delivering intelligence that teams can
                 trust and act upon.
               </p>
             </div>

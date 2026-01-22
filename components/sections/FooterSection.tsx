@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Facebook, Youtube, Twitter, Linkedin } from "lucide-react";
+import { Youtube, Linkedin } from "lucide-react";
 
 export default function FooterSection() {
   return (
@@ -20,31 +20,17 @@ export default function FooterSection() {
           {/* Social Media Icons */}
           <div className="flex items-center gap-6 mb-10">
             <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Instagram className="w-5 h-5" />
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Facebook className="w-5 h-5" />
-            </Link>
-            <Link
-              href="#"
+              href="https://www.youtube.com/@NeuralixInc"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
             >
               <Youtube className="w-5 h-5" />
             </Link>
             <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <Twitter className="w-5 h-5" />
-            </Link>
-            <Link
-              href="#"
+              href="https://www.linkedin.com/company/neuralixai/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
             >
               <Linkedin className="w-5 h-5" />
@@ -96,12 +82,6 @@ export default function FooterSection() {
                 About
               </Link>
               <Link
-                href="/team-background"
-                className="text-gray-300 hover:text-white transition-colors text-base"
-              >
-                Team background
-              </Link>
-              <Link
                 href="/our-team"
                 className="text-gray-300 hover:text-white transition-colors text-base"
               >
@@ -120,10 +100,10 @@ export default function FooterSection() {
                 Career
               </Link>
               <Link
-                href="/contact"
+                href="/#demo"
                 className="text-gray-300 hover:text-white transition-colors text-base"
               >
-                Contact
+                Speak with us
               </Link>
             </div>
           </div>
@@ -208,31 +188,17 @@ export default function FooterSection() {
                 {/* Center - Social Media Icons */}
                 <div className="flex items-start gap-6">
                   <Link
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <Instagram className="w-5 h-5" />
-                  </Link>
-                  <Link
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <Facebook className="w-5 h-5" />
-                  </Link>
-                  <Link
-                    href="#"
+                    href="https://www.youtube.com/@NeuralixInc"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"
                   >
                     <Youtube className="w-5 h-5" />
                   </Link>
                   <Link
-                    href="#"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <Twitter className="w-5 h-5" />
-                  </Link>
-                  <Link
-                    href="#"
+                    href="https://www.linkedin.com/company/neuralixai/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"
                   >
                     <Linkedin className="w-5 h-5" />
@@ -267,13 +233,13 @@ export default function FooterSection() {
                   <div>
                     <h3 className="text-white font-semibold mb-4">India</h3>
                     <p className="text-gray-400 text-sm leading-relaxed">
-                      428, Railway Line Road
+                      Neuralix AI Pvt Ltd
+                    </p>
+                    <p className="text-gray-400 text-sm leading-relaxed pr-1">
+                      579, 32nd D Cross,10th Main Rd,
                     </p>
                     <p className="text-gray-400 text-sm leading-relaxed">
-                      NGEF Layout, Sadananda Nagar
-                    </p>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      Bangalore, Karnataka - 560038
+                      4th Block, Jayanagar, Bengaluru, Karnataka 560011
                     </p>
                     {/* India Map SVG */}
                     <div className="mt-6">
@@ -289,7 +255,7 @@ export default function FooterSection() {
             </div>
 
             {/* Right - Navigation Links (40% width) */}
-            <div className="flex gap-48 w-[30%]">
+            <div className="flex gap-36 w-[30%]">
               {/* Right - Navigation Links - Column 1 */}
               <div className="flex flex-col gap-3">
                 <Link
@@ -319,7 +285,7 @@ export default function FooterSection() {
               </div>
 
               {/* Right - Navigation Links - Column 2 */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 transform -translate-x-4">
                 <Link
                   href="/"
                   className="text-gray-300 hover:text-white transition-colors text-sm"
@@ -331,12 +297,6 @@ export default function FooterSection() {
                   className="text-gray-300 hover:text-white transition-colors text-sm"
                 >
                   About
-                </Link>
-                <Link
-                  href="/team-background"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Team background
                 </Link>
                 <Link
                   href="/our-team"
@@ -357,10 +317,10 @@ export default function FooterSection() {
                   Career
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/#demo"
                   className="text-gray-300 hover:text-white transition-colors text-sm"
                 >
-                  Contact
+                  Speak with us
                 </Link>
               </div>
             </div>

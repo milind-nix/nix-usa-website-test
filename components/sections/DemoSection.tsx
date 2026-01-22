@@ -96,7 +96,7 @@ export default function DemoSection() {
   };
 
   return (
-    <section className="bg-white py-20 md:py-32">
+    <section id="demo" className="bg-white py-20 md:py-32 scroll-mt-20">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 max-w-6xl mx-auto items-start">
           {/* Left Side - Text */}

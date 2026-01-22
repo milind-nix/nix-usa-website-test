@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -11,16 +11,30 @@ interface NavbarProps {
 
 export default function Navbar({ variant = "dark" }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const isLight = variant === "light";
-  const logo = isLight ? "/neuralix-logo.png" : "/neuralix-dark-logo.svg";
-  const textColor = isLight ? "text-white" : "text-gray-900";
-  const hoverBg = isLight ? "hover:bg-white/10" : "hover:bg-gray-100";
-  const hoverText = isLight ? "hover:text-teal-400" : "hover:text-teal-600";
-  const hamburgerColor = isLight ? "text-white" : "text-gray-900";
+
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Determine styles based on scroll state and variant
+  const showDarkStyle = !isLight || isScrolled;
+  const logo = showDarkStyle ? "/neuralix-dark-logo.svg" : "/neuralix-logo.png";
+  const textColor = showDarkStyle ? "text-gray-900" : "text-white";
+  const hoverBg = showDarkStyle ? "hover:bg-gray-100" : "hover:bg-white/10";
+  const hoverText = showDarkStyle ? "hover:text-teal-600" : "hover:text-teal-400";
+  const hamburgerColor = showDarkStyle ? "text-gray-900" : "text-white";
+  const bgColor = showDarkStyle ? "bg-white shadow-sm" : "bg-transparent";
 
   const navLinks = [
     { href: "/about", label: "About" },
-    { href: "#", label: "Our Technologies" },
     { href: "/our-team", label: "Our Team" },
     { href: "/case-studies", label: "Case Studies" },
     { href: "/career", label: "Career" },
@@ -28,7 +42,8 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
 
   return (
     <>
-      <nav className="container mx-auto px-6 py-6">
+      <nav className={`sticky top-0 z-50 transition-all duration-300 ${bgColor}`}>
+        <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
@@ -39,62 +54,49 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
           <div className="hidden lg:flex items-center gap-8">
             <Button
               variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
+              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
               asChild
             >
               <Link href="/about">About</Link>
             </Button>
             <Button
               variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
-              asChild
-            >
-              <Link href="#">Team background</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
+              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
               asChild
             >
               <Link href="/our-team">Our Team</Link>
             </Button>
             <Button
               variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
+              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
               asChild
             >
               <Link href="/case-studies">Case Studies</Link>
             </Button>
             <Button
               variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
+              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
               asChild
             >
               <Link href="/career">Career</Link>
             </Button>
             <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg}`}
-              asChild
-            >
-              <Link href="#">Contact</Link>
-            </Button>
-            <Button
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"
               asChild
             >
-              <Link href="#">Speak with us</Link>
+              <Link href="/#demo">Speak with us</Link>
             </Button>
           </div>
 
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className={`lg:hidden p-2 ${hamburgerColor}`}
+            className={`lg:hidden p-2 ${hamburgerColor} transition-colors duration-300`}
             aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
           </button>
+        </div>
         </div>
       </nav>
 
@@ -144,14 +146,14 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                 </Link>
               ))}
 
-              {/* Contact Us Button */}
+              {/* Speak with us Button */}
               <div className="pt-8">
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-8 py-3 text-base"
                   asChild
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <Link href="/contact">Contact Us</Link>
+                  <Link href="/#demo">Speak with us</Link>
                 </Button>
               </div>
             </div>

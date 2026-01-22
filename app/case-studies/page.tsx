@@ -4,62 +4,53 @@ import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/sections/FooterSection";
-
-interface CaseStudy {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  tag: string;
-}
-
-const caseStudies: CaseStudy[] = [
-  {
-    id: "maximizing-midstream-margins",
-    title: "Maximizing Midstream Margins via Operational Excellence",
-    category: "Utilities",
-    description:
-      "How AI-driven pump optimization and predictive intelligence transformed midstream water management across 40+ facilities.",
-    image: "/case-study-img.svg",
-    tag: "Midstream Waters",
-  },
-  {
-    id: "securing-midstream-reliability",
-    title: "Securing Midstream Reliability via RUL Analytics",
-    category: "Utilities",
-    description:
-      "Reducing emergency repair costs and production disruptions through a fleet-wide proactive intervention strategy.",
-    image: "/case-study-img.svg",
-    tag: "Midstream Waters",
-  },
-  {
-    id: "protecting-100m-revenue",
-    title: "Protecting $100M in Annual Revenue per Oil Well",
-    category: "Energy",
-    description:
-      "Replacing reactive workovers with explainable AI to differentiate sensor malfunctions from critical wellbore blockages at scale.",
-    image: "/case-study-img.svg",
-    tag: "Oil & Gas",
-  },
-];
-
-const categories = ["All", "Energy", "Manufacturing", "Mining", "Utilities"];
+import { useGetCaseStudies, useGetCategories } from "@/hooks/use-get-case-studies";
 
 export default function CaseStudiesPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const { caseStudies, loading, error } = useGetCaseStudies();
+  const { categories } = useGetCategories();
 
   const filteredCaseStudies =
     selectedCategory === "All"
       ? caseStudies
-      : caseStudies.filter((study) => study.category === selectedCategory);
+      : caseStudies.filter((study) => study.category?.name === selectedCategory);
+
+  // Build category list with "All" at the start
+  const categoryList = ["All", ...categories.map((cat) => cat.name)];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="bg-white shadow-sm">
+          <Navbar />
+        </div>
+        <div className="container mx-auto px-6 py-32">
+          <div className="flex justify-center items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="bg-white shadow-sm">
+          <Navbar />
+        </div>
+        <div className="container mx-auto px-6 py-32 text-center">
+          <p className="text-red-500 text-lg">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <div className="bg-white shadow-sm">
-        <Navbar />
-      </div>
+      <Navbar />
 
       {/* Header Section */}
       <section className="bg-white py-20 md:py-32">
@@ -76,7 +67,7 @@ export default function CaseStudiesPage() {
 
           {/* Category Filter */}
           <div className="flex justify-center gap-4 mb-16 flex-wrap">
-            {categories.map((category) => (
+            {categoryList.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
@@ -93,10 +84,10 @@ export default function CaseStudiesPage() {
 
           {/* Case Studies Stack */}
           <div className="space-y-8 max-w-6xl mx-auto">
-            {filteredCaseStudies.map((study, index) => (
+            {filteredCaseStudies.map((study) => (
               <Link
-                key={study.id}
-                href={`/case-studies/${study.id}`}
+                key={study._id}
+                href={`/case-studies/${study.slug.current}`}
                 className="group block"
               >
                 <div className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -110,7 +101,7 @@ export default function CaseStudiesPage() {
                         {study.title}
                       </h3>
                       <p className="text-gray-600 text-lg leading-relaxed">
-                        {study.description}
+                        {study.subtitle}
                       </p>
                     </div>
 
@@ -118,7 +109,7 @@ export default function CaseStudiesPage() {
                     <div className="order-1 md:order-2">
                       <div className="aspect-video rounded-xl overflow-hidden">
                         <img
-                          src={study.image}
+                          src={study.cardImageUrl || study.heroImageUrl || "/case-study-img.svg"}
                           alt={study.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
@@ -130,7 +121,7 @@ export default function CaseStudiesPage() {
             ))}
           </div>
 
-          {filteredCaseStudies.length === 0 && (
+          {filteredCaseStudies.length === 0 && !loading && (
             <div className="text-center py-16">
               <p className="text-gray-500 text-lg">
                 No case studies found in this category.

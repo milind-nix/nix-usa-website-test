@@ -1,152 +1,202 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/sections/FooterSection";
 import { Button } from "@/components/ui/button";
-import { Upload } from "lucide-react";
-
-// Sample job data (in a real app, this would come from an API or database)
-const jobData: Record<string, any> = {
-  "1": {
-    id: "1",
-    title: "Senior Machine Learning Engineer",
-    location: "India",
-    type: "Remote",
-    experience: "5 yrs",
-    description:
-      "We are seeking an experienced Senior Machine Learning Engineer with a strong background in ML model development to join our growing team. In this role, you will lead the development of key systems, mentor a talented group of engineers, and play a pivotal role in shaping the technical direction of our products.",
-    qualifications: [
-      "Bachelor's or Master's degree in Computer Science, Machine Learning, or a related field.",
-      "5+ years of experience in machine learning and deep learning.",
-      "Strong proficiency in Python and ML frameworks (TensorFlow, PyTorch).",
-      "Experience with data preprocessing, feature engineering, and model evaluation.",
-    ],
-    responsibilities: [
-      "Model Development: Design, develop, and deploy machine learning models for industrial applications.",
-      "Technical Mentorship: Guide and mentor junior and mid-level engineers, fostering a culture of continuous learning and technical excellence.",
-      "System Development: Build scalable ML pipelines and integrate models into production systems.",
-      "Problem-Solving: Tackle complex technical challenges and ensure the reliability of ML systems.",
-      "Collaboration: Work closely with cross-functional teams to deliver impactful solutions.",
-      "Innovation: Stay current with industry trends and introduce new technologies to the tech stack.",
-    ],
-    expertise: [
-      "Over 5+ years of experience in machine learning development.",
-      "Experience with cloud platforms (AWS, Azure, GCP) and MLOps practices.",
-      "Proficiency in model optimization and deployment strategies.",
-      "Strong understanding of statistical analysis and data visualization.",
-    ],
-    benefits: [
-      "An opportunity to be at the cutting edge of AI-driven industrial transformation.",
-      "A collaborative, growth-oriented environment with hands-on training and mentorship.",
-      "Opportunities to work on cutting-edge projects with real-world applications.",
-      "Opportunities for continuous learning and professional development.",
-      "Competitive compensation and comprehensive benefits package.",
-    ],
-  },
-  "2": {
-    id: "2",
-    title: "Data Scientist",
-    location: "United States",
-    type: "Hybrid",
-    experience: "3 yrs",
-    description:
-      "We are looking for a talented Data Scientist to join our team and help transform industrial data into actionable insights. You will work on challenging problems in predictive analytics, anomaly detection, and optimization.",
-    qualifications: [
-      "Bachelor's or Master's degree in Data Science, Statistics, Computer Science, or related field.",
-      "3+ years of experience in data science and analytics.",
-      "Strong proficiency in Python, R, and SQL.",
-      "Experience with statistical modeling and machine learning algorithms.",
-    ],
-    responsibilities: [
-      "Data Analysis: Analyze complex industrial datasets to extract meaningful insights.",
-      "Model Building: Develop predictive models and anomaly detection algorithms.",
-      "Visualization: Create compelling data visualizations and dashboards.",
-      "Collaboration: Work with engineering and product teams to implement data-driven solutions.",
-      "Research: Stay updated with latest trends in data science and AI.",
-    ],
-    expertise: [
-      "Experience with data visualization tools (Tableau, Power BI, or similar).",
-      "Knowledge of big data technologies (Spark, Hadoop).",
-      "Understanding of industrial IoT and sensor data.",
-      "Strong communication and presentation skills.",
-    ],
-    benefits: [
-      "Flexible hybrid work arrangement.",
-      "Work on meaningful projects that impact industrial operations.",
-      "Collaborative and innovative work environment.",
-      "Professional development opportunities.",
-      "Comprehensive benefits package.",
-    ],
-  },
-  "3": {
-    id: "3",
-    title: "Full Stack Developer",
-    location: "India",
-    type: "Remote",
-    experience: "4 yrs",
-    description:
-      "We are seeking an experienced Senior Software Engineer with a strong background in the Python & React stack to join our growing team. In this role, you will lead the development of key systems, mentor a talented group of engineers, and play a pivotal role in shaping the technical direction of our products.",
-    qualifications: [
-      "Bachelor's or Master's degree in Computer Science, Software Engineering, or a related field.",
-      "4+ years of experience in full-stack development.",
-      "Strong proficiency in Python and React.",
-      "Experience with modern web technologies and frameworks.",
-    ],
-    responsibilities: [
-      "Architectural Leadership: Lead the design and architecture of complex software systems, ensuring they are scalable, maintainable, and secure.",
-      "Technical Mentorship: Guide and mentor junior and mid-level engineers, fostering a culture of continuous learning and technical excellence.",
-      "System Development: Develop, test, and deploy high-quality software solutions using Python and related technologies.",
-      "Problem-Solving: Tackle complex technical challenges, troubleshoot issues, and ensure the reliability of our systems.",
-      "Code Quality: Ensure that all code adheres to high standards of performance, security, and scalability through rigorous code reviews and testing.",
-      "Collaboration: Work closely with cross-functional teams, including Product, Design, and Operations, to deliver impactful solutions that align with business objectives.",
-      "Documentation: Maintain clear and comprehensive documentation of system architectures, APIs, and development processes.",
-      "Innovation: Stay current with industry trends, tools, and technologies, and proactively introduce improvements to our development processes and tech stack.",
-    ],
-    expertise: [
-      "Over 5+ years of experience in software development, including at least 4 years in a senior or staff engineer role, with a focus on Python. At least 2 years of experience with React and a minimum of 1 year working in a data-rich domain",
-      "Expertise in Python and associated frameworks (e.g., Django, Flask, FastAPI), Strong understanding of RESTful APIs and working with microservices",
-      "Proficiency with front-end technologies (HTML, CSS, AWS, Azure, GCP) and containerization (e.g., Docker, Kubernetes).",
-      "Proficiency in both relational and NoSQL databases (e.g., Postgres SQL, MongoDB), and solid understanding of CI/CD practices and tools",
-      "Experience with asynchronous programming and event-driven architecture",
-      "Experience in building frameworks / libraries in Python is preferred",
-      "Preferred experience with ETL and orchestration tools (e.g., Airflow, Airflow) and data lake technologies.",
-    ],
-    benefits: [
-      "Neuralix.ai is an equal opportunity employer. We celebrate diversity and are committed to creating an inclusive environment for all employees.",
-      "An opportunity to be at the cutting edge of AI-driven sustainability initiatives.",
-      "A collaborative, growth-oriented environment. Hands-on training and mentorship to help you sharpen your skills.",
-      "Opportunities to work on cutting-edge projects with real-world applications.",
-      "Opportunities for continuous learning and professional development.",
-      "Dynamic work culture with learning & development opportunities.",
-    ],
-  },
-};
+import { Upload, Loader2, CheckCircle } from "lucide-react";
+import { useGetJobs } from "@/hooks/use-get-jobs";
+import { client } from "@/lib/sanity";
 
 export default function JobDetailPage() {
   const params = useParams();
   const jobId = params.jobId as string;
-  const job = jobData[jobId];
+  const { data: jobs, loading, error } = useGetJobs();
 
-  if (!job) {
+  // Form state
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    countryCode: "+91",
+    mobile: "",
+    experience: "",
+    linkedInProfile: "",
+    portfolioLink: "",
+    tncAccepted: false,
+  });
+  const [resume, setResume] = useState<File | null>(null);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const job = jobs.find((j) => j.jobId === jobId);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: (e.target as HTMLInputElement).checked,
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setResume(e.target.files[0]);
+    }
+  };
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    if (!formData.fullName.trim()) errors.fullName = "Full name is required";
+    if (!formData.email.trim()) errors.email = "Email is required";
+    if (!formData.mobile.trim()) errors.mobile = "Mobile number is required";
+    if (!formData.experience.trim()) errors.experience = "Experience is required";
+    if (!formData.linkedInProfile.trim())
+      errors.linkedInProfile = "LinkedIn profile is required";
+    if (!formData.tncAccepted)
+      errors.tncAccepted = "You must agree to the terms";
+    if (!resume) errors.resume = "Resume is required";
+    return errors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = validateForm();
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
+
+    try {
+      // 1. Upload resume to Sanity
+      const resumeDocument = await client.assets.upload("file", resume as File, {
+        contentType: resume?.type,
+        filename: resume?.name,
+      });
+
+      // 2. Create job applicant document in Sanity
+      const doc = {
+        _id: `${jobId}-${formData.mobile.replace(/\D/g, "")}`,
+        _type: "jobApplicants",
+        fullName: formData.fullName,
+        email: formData.email,
+        jobId: jobId,
+        countryCode: formData.countryCode,
+        mobile: formData.mobile,
+        experience: formData.experience,
+        linkedInProfile: formData.linkedInProfile,
+        portfolioLink: formData.portfolioLink || undefined,
+        resume: {
+          _type: "file",
+          asset: {
+            _type: "reference",
+            _ref: resumeDocument._id,
+          },
+        },
+        tncAccepted: formData.tncAccepted,
+      };
+
+      await client.createIfNotExists(doc);
+
+      // 3. Send email notification via API
+      const response = await fetch("/api/careers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          countryCode: formData.countryCode,
+          mobile: formData.mobile,
+          experience: formData.experience,
+          linkedInProfile: formData.linkedInProfile,
+          portfolioLink: formData.portfolioLink,
+          jobId: jobId,
+          jobName: job?.jobName || jobId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === "ok") {
+        setSubmitStatus("success");
+        setSubmitMessage(
+          "Application submitted successfully! We'll be in touch soon."
+        );
+        // Reset form
+        setFormData({
+          fullName: "",
+          email: "",
+          countryCode: "+91",
+          mobile: "",
+          experience: "",
+          linkedInProfile: "",
+          portfolioLink: "",
+          tncAccepted: false,
+        });
+        setResume(null);
+      } else {
+        setSubmitStatus("error");
+        setSubmitMessage(
+          data.reason || "Failed to submit application. Please try again."
+        );
+      }
+    } catch (err) {
+      console.error("Application submission error:", err);
+      setSubmitStatus("error");
+      setSubmitMessage("Failed to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (loading) {
     return (
       <div className="min-h-screen bg-white">
-        <div className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm">
-          <Navbar />
-        </div>
-        <div className="container mx-auto px-6 py-32">
-          <h1 className="text-4xl font-bold text-gray-900">Job not found</h1>
+        <Navbar />
+        <div className="flex justify-center items-center h-screen">
+          <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+          <span className="ml-3 text-gray-600">Loading job details...</span>
         </div>
       </div>
     );
   }
 
+  if (error || !job) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <div className="container mx-auto px-6 py-32">
+          <h1 className="text-4xl font-bold text-gray-900">Job not found</h1>
+          <p className="text-gray-600 mt-4">
+            The job you&apos;re looking for doesn&apos;t exist or has been removed.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const formatExperience = (min: number, max: number) => {
+    if (min === max) return `${min} yrs`;
+    return `${min}-${max} yrs`;
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <div className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm">
-        <Navbar />
-      </div>
+      <Navbar />
 
       {/* Main Content */}
       <div className="pt-24 pb-20">
@@ -157,17 +207,20 @@ export default function JobDetailPage() {
               {/* Job Header */}
               <div className="my-8">
                 <h1 className="text-4xl md:text-5xl font-medium text-gray-900 mb-4">
-                  {job.title}
+                  {job.jobName}
                 </h1>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium">
+                  <span className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium capitalize">
                     {job.location}
                   </span>
                   <span className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium">
-                    {job.type}
+                    {job.remote ? "Remote" : "On-site"}
                   </span>
                   <span className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium">
-                    {job.experience}
+                    {formatExperience(
+                      job.minimumExperience,
+                      job.maximumExperience
+                    )}
                   </span>
                 </div>
               </div>
@@ -178,82 +231,130 @@ export default function JobDetailPage() {
                   About this role
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  {job.description}
+                  {job.roleDescription}
                 </p>
               </section>
 
               {/* Qualifications */}
-              <section className="mb-10">
-                <h2 className="text-2xl font-medium text-gray-900 mb-4">
-                  Qualifications
-                </h2>
-                <ul className="space-y-3">
-                  {job.qualifications.map((qual: string, index: number) => (
-                    <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold shrink-0">
-                        •
-                      </span>
-                      <span>{qual}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              {job.qualifications && job.qualifications.length > 0 && (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                    Qualifications
+                  </h2>
+                  <ul className="space-y-3">
+                    {job.qualifications.map((qual: string, index: number) => (
+                      <li key={index} className="flex gap-3 text-gray-700">
+                        <span className="text-teal-500 font-bold shrink-0">
+                          •
+                        </span>
+                        <span>{qual}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
               {/* Responsibilities */}
-              <section className="mb-10">
-                <h2 className="text-2xl font-medium text-gray-900 mb-4">
-                  Responsibilities
-                </h2>
-                <ul className="space-y-3">
-                  {job.responsibilities.map((resp: string, index: number) => (
-                    <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold shrink-0">
-                        •
-                      </span>
-                      <span>{resp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              {job.responsibilities && job.responsibilities.length > 0 && (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                    Responsibilities
+                  </h2>
+                  <ul className="space-y-3">
+                    {job.responsibilities.map((resp: string, index: number) => (
+                      <li key={index} className="flex gap-3 text-gray-700">
+                        <span className="text-teal-500 font-bold shrink-0">
+                          •
+                        </span>
+                        <span>{resp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
               {/* Expertise and Capabilities */}
-              <section className="mb-10">
-                <h2 className="text-2xl font-medium text-gray-900 mb-4">
-                  Expertise and Capabilities
-                </h2>
-                <ul className="space-y-3">
-                  {job.expertise.map((exp: string, index: number) => (
-                    <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold shrink-0">
-                        •
-                      </span>
-                      <span>{exp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              {job.technicalSkills && job.technicalSkills.length > 0 && (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                    Expertise and Capabilities
+                  </h2>
+                  <ul className="space-y-3">
+                    {job.technicalSkills.map((skill: string, index: number) => (
+                      <li key={index} className="flex gap-3 text-gray-700">
+                        <span className="text-teal-500 font-bold shrink-0">
+                          •
+                        </span>
+                        <span>{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {/* Company Values */}
+              {job.companyValues && (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                    Company Values
+                  </h2>
+                  {job.companyValues.description && (
+                    <p className="text-gray-700 mb-4">
+                      {job.companyValues.description}
+                    </p>
+                  )}
+                  {job.companyValues.points &&
+                    job.companyValues.points.length > 0 && (
+                      <ul className="space-y-3">
+                        {job.companyValues.points.map(
+                          (point: string, index: number) => (
+                            <li
+                              key={index}
+                              className="flex gap-3 text-gray-700"
+                            >
+                              <span className="text-teal-500 font-bold shrink-0">
+                                •
+                              </span>
+                              <span>{point}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    )}
+                </section>
+              )}
 
               {/* Company Benefits */}
-              <section className="mb-10">
-                <h2 className="text-2xl font-medium text-gray-900 mb-4">
-                  Company Benefits
-                </h2>
-                <p className="text-gray-700 mb-4">
-                  Neuralix.ai is an equal opportunity employer. We celebrate
-                  diversity and are committed to creating an inclusive
-                  environment for all employees.
-                </p>
-                <ul className="space-y-3">
-                  {job.benefits.map((benefit: string, index: number) => (
-                    <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold shrink-0">
-                        •
-                      </span>
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              {job.companyBenefits && (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                    Company Benefits
+                  </h2>
+                  {job.companyBenefits.description && (
+                    <p className="text-gray-700 mb-4">
+                      {job.companyBenefits.description}
+                    </p>
+                  )}
+                  {job.companyBenefits.points &&
+                    job.companyBenefits.points.length > 0 && (
+                      <ul className="space-y-3">
+                        {job.companyBenefits.points.map(
+                          (benefit: string, index: number) => (
+                            <li
+                              key={index}
+                              className="flex gap-3 text-gray-700"
+                            >
+                              <span className="text-teal-500 font-bold shrink-0">
+                                •
+                              </span>
+                              <span>{benefit}</span>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    )}
+                </section>
+              )}
             </div>
 
             {/* Right Side - Application Form (Fixed on scroll) */}
@@ -267,7 +368,7 @@ export default function JobDetailPage() {
                     Use the form below to submit your application
                   </p>
 
-                  <form className="space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Full Name */}
                     <div>
                       <label className="block text-sm font-medium text-gray-900 mb-2">
@@ -275,9 +376,16 @@ export default function JobDetailPage() {
                       </label>
                       <input
                         type="text"
-                        required
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                       />
+                      {formErrors.fullName && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.fullName}
+                        </p>
+                      )}
                     </div>
 
                     {/* Email */}
@@ -287,9 +395,16 @@ export default function JobDetailPage() {
                       </label>
                       <input
                         type="email"
-                        required
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                       />
+                      {formErrors.email && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.email}
+                        </p>
+                      )}
                     </div>
 
                     {/* Mobile */}
@@ -298,17 +413,31 @@ export default function JobDetailPage() {
                         Mobile <span className="text-red-500">*</span>
                       </label>
                       <div className="flex gap-2">
-                        <select className="px-3 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white">
-                          <option>+91</option>
-                          <option>+1</option>
-                          <option>+44</option>
+                        <select
+                          name="countryCode"
+                          value={formData.countryCode}
+                          onChange={handleInputChange}
+                          className="px-3 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
+                        >
+                          <option value="+91">+91</option>
+                          <option value="+1">+1</option>
+                          <option value="+44">+44</option>
+                          <option value="+49">+49</option>
+                          <option value="+33">+33</option>
                         </select>
                         <input
                           type="tel"
-                          required
+                          name="mobile"
+                          value={formData.mobile}
+                          onChange={handleInputChange}
                           className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                         />
                       </div>
+                      {formErrors.mobile && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.mobile}
+                        </p>
+                      )}
                     </div>
 
                     {/* Experience */}
@@ -318,9 +447,17 @@ export default function JobDetailPage() {
                       </label>
                       <input
                         type="text"
-                        required
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleInputChange}
+                        placeholder="e.g., 5 years"
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                       />
+                      {formErrors.experience && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.experience}
+                        </p>
+                      )}
                     </div>
 
                     {/* LinkedIn Profile */}
@@ -330,9 +467,17 @@ export default function JobDetailPage() {
                       </label>
                       <input
                         type="url"
-                        required
+                        name="linkedInProfile"
+                        value={formData.linkedInProfile}
+                        onChange={handleInputChange}
+                        placeholder="https://linkedin.com/in/..."
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                       />
+                      {formErrors.linkedInProfile && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.linkedInProfile}
+                        </p>
+                      )}
                     </div>
 
                     {/* Portfolio */}
@@ -342,6 +487,10 @@ export default function JobDetailPage() {
                       </label>
                       <input
                         type="url"
+                        name="portfolioLink"
+                        value={formData.portfolioLink}
+                        onChange={handleInputChange}
+                        placeholder="https://..."
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
                       />
                     </div>
@@ -349,12 +498,13 @@ export default function JobDetailPage() {
                     {/* Upload CV/Resume */}
                     <div>
                       <label className="block text-sm font-medium text-gray-900 mb-2">
-                        Upload CV/Resume
+                        Upload CV/Resume <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <input
                           type="file"
                           accept=".pdf,.doc,.docx"
+                          onChange={handleFileChange}
                           className="hidden"
                           id="cv-upload"
                         />
@@ -362,15 +512,22 @@ export default function JobDetailPage() {
                           htmlFor="cv-upload"
                           className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors"
                         >
-                          <Upload className="w-5 h-5 text-gray-600 bg-white" />
+                          <Upload className="w-5 h-5 text-gray-600" />
                           <span className="text-sm text-gray-600">
-                            Choose File
+                            {resume ? resume.name : "Choose File"}
                           </span>
                         </label>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        No file chosen
-                      </p>
+                      {formErrors.resume && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {formErrors.resume}
+                        </p>
+                      )}
+                      {!resume && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          PDF, DOC, or DOCX (max 5MB)
+                        </p>
+                      )}
                     </div>
 
                     {/* Terms Agreement */}
@@ -378,7 +535,9 @@ export default function JobDetailPage() {
                       <input
                         type="checkbox"
                         id="terms"
-                        required
+                        name="tncAccepted"
+                        checked={formData.tncAccepted}
+                        onChange={handleInputChange}
                         className="mt-1 w-4 h-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
                       />
                       <label htmlFor="terms" className="text-xs text-gray-600">
@@ -386,10 +545,42 @@ export default function JobDetailPage() {
                         handling of your data by this website.
                       </label>
                     </div>
+                    {formErrors.tncAccepted && (
+                      <p className="text-red-500 text-sm">
+                        {formErrors.tncAccepted}
+                      </p>
+                    )}
+
+                    {/* Submit Status Message */}
+                    {submitMessage && (
+                      <div
+                        className={`flex items-center gap-2 p-4 rounded-lg ${
+                          submitStatus === "success"
+                            ? "bg-green-50 text-green-700"
+                            : "bg-red-50 text-red-700"
+                        }`}
+                      >
+                        {submitStatus === "success" && (
+                          <CheckCircle className="w-5 h-5" />
+                        )}
+                        <p className="text-sm">{submitMessage}</p>
+                      </div>
+                    )}
 
                     {/* Submit Button */}
-                    <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white rounded-lg py-3 text-base font-medium">
-                      Submit
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gray-900 hover:bg-gray-800 text-white rounded-lg py-3 text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit"
+                      )}
                     </Button>
                   </form>
                 </div>

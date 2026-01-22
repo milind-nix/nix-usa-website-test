@@ -4,138 +4,67 @@ import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/sections/FooterSection";
-import { Search, ChevronRight, ChevronDown } from "lucide-react";
+import { Search, ChevronRight, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface Job {
-  id: string;
-  title: string;
-  category: string;
-  location: string;
-  type: string;
-  experience: string;
-  status: string;
-  postedDate: string;
-}
-
-const jobListings: Job[] = [
-  {
-    id: "1",
-    title: "Senior Machine Learning Engineer",
-    category: "Engineering",
-    location: "India",
-    type: "Remote",
-    experience: "5 yrs",
-    status: "OPEN",
-    postedDate: "24.11.2025",
-  },
-  {
-    id: "2",
-    title: "Data Scientist",
-    category: "Data Science",
-    location: "United States",
-    type: "Hybrid",
-    experience: "3 yrs",
-    status: "OPEN",
-    postedDate: "20.11.2025",
-  },
-  {
-    id: "3",
-    title: "Full Stack Developer",
-    category: "Engineering",
-    location: "India",
-    type: "Remote",
-    experience: "4 yrs",
-    status: "OPEN",
-    postedDate: "18.11.2025",
-  },
-  {
-    id: "4",
-    title: "Product Manager",
-    category: "Product",
-    location: "United States",
-    type: "On-site",
-    experience: "6 yrs",
-    status: "OPEN",
-    postedDate: "15.11.2025",
-  },
-  {
-    id: "5",
-    title: "Marketing Specialist",
-    category: "Marketing & Sales",
-    location: "United States",
-    type: "Remote",
-    experience: "3 yrs",
-    status: "OPEN",
-    postedDate: "10.11.2025",
-  },
-  {
-    id: "6",
-    title: "Founder's Office Associate",
-    category: "Others",
-    location: "India",
-    type: "Remote",
-    experience: "5 yrs",
-    status: "OPEN",
-    postedDate: "24.11.2025",
-  },
-  {
-    id: "7",
-    title: "DevOps Engineer",
-    category: "Engineering",
-    location: "India",
-    type: "Hybrid",
-    experience: "4 yrs",
-    status: "OPEN",
-    postedDate: "05.11.2025",
-  },
-  {
-    id: "8",
-    title: "AI Research Scientist",
-    category: "Data Science",
-    location: "United States",
-    type: "On-site",
-    experience: "7 yrs",
-    status: "OPEN",
-    postedDate: "01.11.2025",
-  },
-];
+import { useGetJobs } from "@/hooks/use-get-jobs";
+import { JobDetailsType } from "@/lib/types/careers";
 
 const categories = [
   "Engineering",
   "Data Science",
   "Marketing & Sales",
   "Product",
+  "Business Operations",
   "Others",
 ];
 
+// Map Sanity department values to display categories
+const departmentToCategory: Record<string, string> = {
+  engineering: "Engineering",
+  "data-science": "Data Science",
+  marketing: "Marketing & Sales",
+  management: "Product",
+  "business-operation": "Business Operations",
+  design: "Others",
+};
+
 export default function CareerPage() {
+  const { data: jobs, loading, error } = useGetJobs();
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
-  const filteredJobs = jobListings.filter((job) => {
+  // Filter only active jobs
+  const activeJobs = jobs.filter((job) => job.active);
+
+  const filteredJobs = activeJobs.filter((job) => {
     const matchesSearch =
-      job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.jobName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.location.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesSearch;
   });
 
   const jobsByCategory = categories.reduce((acc, category) => {
-    acc[category] = filteredJobs.filter((job) => job.category === category);
+    acc[category] = filteredJobs.filter((job) => {
+      const jobCategory = departmentToCategory[job.department] || "Others";
+      return jobCategory === category;
+    });
     return acc;
-  }, {} as Record<string, Job[]>);
+  }, {} as Record<string, JobDetailsType[]>);
 
   const toggleCategory = (category: string) => {
     setExpandedCategory(expandedCategory === category ? null : category);
   };
 
+  const formatExperience = (min: number, max: number) => {
+    if (min === max) return `${min} yrs`;
+    return `${min}-${max} yrs`;
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <div className="absolute top-0 left-0 right-0 z-50 bg-white shadow-sm">
-        <Navbar />
-      </div>
+      <Navbar />
 
       {/* Hero Section with Background Image and Gradient */}
       <section className="relative h-[60vh] md:h-screen w-full">
@@ -182,92 +111,123 @@ export default function CareerPage() {
             </div>
           </div>
 
+          {/* Loading State */}
+          {loading && (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+              <span className="ml-3 text-gray-600">Loading jobs...</span>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="text-center py-16">
+              <p className="text-red-500 text-lg">
+                Failed to load jobs. Please try again later.
+              </p>
+            </div>
+          )}
+
           {/* Job Categories Accordion */}
-          <div className="max-w-4xl mx-auto">
-            {categories.map((category) => {
-              const jobs = jobsByCategory[category];
-              const isExpanded = expandedCategory === category;
+          {!loading && !error && (
+            <div className="max-w-4xl mx-auto">
+              {categories.map((category) => {
+                const categoryJobs = jobsByCategory[category];
+                const isExpanded = expandedCategory === category;
 
-              return (
-                <div key={category} className="border-b border-gray-200">
-                  {/* Category Header */}
-                  <button
-                    onClick={() => toggleCategory(category)}
-                    className="w-full flex items-center justify-between py-4 md:py-6 hover:bg-gray-50 transition-colors"
-                  >
-                    <h3 className="text-lg md:text-2xl font-medium text-gray-900">
-                      {category}
-                    </h3>
-                    {isExpanded ? (
-                      <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-gray-600" />
-                    ) : (
-                      <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-600" />
-                    )}
-                  </button>
+                return (
+                  <div key={category} className="border-b border-gray-200">
+                    {/* Category Header */}
+                    <button
+                      onClick={() => toggleCategory(category)}
+                      className="w-full flex items-center justify-between py-4 md:py-6 hover:bg-gray-50 transition-colors"
+                    >
+                      <h3 className="text-lg md:text-2xl font-medium text-gray-900">
+                        {category}
+                      </h3>
+                      {isExpanded ? (
+                        <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-gray-600" />
+                      ) : (
+                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-600" />
+                      )}
+                    </button>
 
-                  {/* Job Listings */}
-                  {isExpanded && (
-                    <div className="pb-4 md:pb-6 space-y-4">
-                      {jobs.length > 0 ? (
-                        jobs.map((job) => (
-                          <div
-                            key={job.id}
-                            className="bg-[#F7F7F7] rounded-xl p-4 md:p-6 border border-dashed border-gray-300"
-                          >
-                            {/* Mobile: Title with Location on same line */}
-                            <div className="flex items-start justify-between mb-3">
-                              <h4 className="text-lg md:text-xl font-medium text-gray-900 flex-1">
-                                {job.title}
-                              </h4>
-                              <span className="text-sm text-gray-600 ml-2 whitespace-nowrap">
-                                {job.location}
-                              </span>
-                            </div>
-
-                            {/* Job Details Chips */}
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              <span className="px-4 py-1.5 rounded-full bg-white border border-teal-500 text-teal-600 text-sm">
-                                {job.experience}
-                              </span>
-                              <span className="px-4 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm">
-                                {job.type}
-                              </span>
-                              <span className="hidden md:inline-block px-4 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm">
-                                {job.location}
-                              </span>
-                            </div>
-
-                            {/* Status and Posted Date */}
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-2 md:gap-4 text-sm text-gray-600">
-                                <span className="font-semibold">
-                                  {job.status}
+                    {/* Job Listings */}
+                    {isExpanded && (
+                      <div className="pb-4 md:pb-6 space-y-4">
+                        {categoryJobs.length > 0 ? (
+                          categoryJobs.map((job) => (
+                            <div
+                              key={job._id}
+                              className="bg-[#F7F7F7] rounded-xl p-4 md:p-6 border border-dashed border-gray-300"
+                            >
+                              {/* Mobile: Title with Location on same line */}
+                              <div className="flex items-start justify-between mb-3">
+                                <h4 className="text-lg md:text-xl font-medium text-gray-900 flex-1">
+                                  {job.jobName}
+                                </h4>
+                                <span className="text-sm text-gray-600 ml-2 whitespace-nowrap capitalize">
+                                  {job.location}
                                 </span>
-                                <span>•</span>
-                                <span>Posted on: {job.postedDate}</span>
                               </div>
 
-                              {/* Apply Button */}
-                              <Button
-                                className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6 py-2 text-sm whitespace-nowrap"
-                                asChild
-                              >
-                                <Link href={`/career/${job.id}`}>Apply</Link>
-                              </Button>
+                              {/* Job Details Chips */}
+                              <div className="flex flex-wrap gap-2 mb-3">
+                                <span className="px-4 py-1.5 rounded-full bg-white border border-teal-500 text-teal-600 text-sm">
+                                  {formatExperience(
+                                    job.minimumExperience,
+                                    job.maximumExperience
+                                  )}
+                                </span>
+                                <span className="px-4 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm">
+                                  {job.remote ? "Remote" : "On-site"}
+                                </span>
+                                <span className="hidden md:inline-block px-4 py-1.5 rounded-full bg-white border border-gray-300 text-gray-600 text-sm capitalize">
+                                  {job.location}
+                                </span>
+                              </div>
+
+                              {/* Status and Apply Button */}
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2 md:gap-4 text-sm text-gray-600">
+                                  <span className="font-semibold text-green-600">
+                                    OPEN
+                                  </span>
+                                </div>
+
+                                {/* Apply Button */}
+                                <Button
+                                  className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6 py-2 text-sm whitespace-nowrap"
+                                  asChild
+                                >
+                                  <Link href={`/career/${job.jobId}`}>
+                                    Apply
+                                  </Link>
+                                </Button>
+                              </div>
                             </div>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-gray-500 text-center py-8">
-                          No jobs found in this category
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                          ))
+                        ) : (
+                          <p className="text-gray-500 text-center py-8">
+                            No jobs found in this category
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* No jobs found */}
+          {!loading && !error && filteredJobs.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-gray-500 text-lg">
+                No open positions found. Please check back later.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
