@@ -81,7 +81,7 @@ export default function UseCasesSection() {
   const activeCase = useCases.find((c) => c.id === activeTab) || useCases[0];
 
   return (
-    <section className="min-h-screen bg-white relative z-10">
+    <section className="min-h-fit bg-white relative z-10">
       <div className="rounded-t-3xl pt-12 md:pt-20">
         {/* Section Title */}
         <div className="container mx-auto px-6 mb-6 md:mb-12">
@@ -149,11 +149,11 @@ export default function UseCasesSection() {
             </ul>
 
             {/* Read More Button */}
-            <div className="w-full flex justify-center">
+            {/* <div className="w-full flex justify-center">
               <Button className="bg-teal-500 hover:bg-teal-600 text-white rounded-md px-8 py-3 h-auto text-base cursor-pointer">
                 Read More
               </Button>
-            </div>
+            </div> */}
           </div>
 
           {/* Desktop Layout */}
@@ -177,12 +177,11 @@ export default function UseCasesSection() {
                 ))}
               </ul>
 
-              <div className="w-full flex justify-center">
-                {/* Read More Button */}
+              {/* <div className="w-full flex justify-center">
                 <Button className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-8 py-3 h-auto text-base cursor-pointer">
                   Read More
                 </Button>
-              </div>
+              </div> */}
             </div>
 
             {/* Right Image */}
