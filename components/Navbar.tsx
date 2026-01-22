@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { handleScrollToDemo } from "@/lib/utils";
 
 interface NavbarProps {
   variant?: "light" | "dark";
@@ -12,6 +14,8 @@ interface NavbarProps {
 export default function Navbar({ variant = "dark" }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
   const isLight = variant === "light";
 
   // Track scroll position
@@ -84,7 +88,12 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
               className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"
               asChild
             >
-              <Link href="/#demo">Speak with us</Link>
+              <a
+                href="/#demo"
+                onClick={(e) => handleScrollToDemo(router, e)}
+              >
+                Speak with us
+              </a>
             </Button>
           </div>
 
@@ -153,7 +162,15 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                   asChild
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <Link href="/#demo">Speak with us</Link>
+                  <a
+                    href="/#demo"
+                    onClick={(e) => {
+                      setIsMenuOpen(false);
+                      handleScrollToDemo(router, e);
+                    }}
+                  >
+                    Speak with us
+                  </a>
                 </Button>
               </div>
             </div>

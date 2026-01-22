@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Youtube, Linkedin } from "lucide-react";
+import { handleScrollToDemo } from "@/lib/utils";
 
 export default function FooterSection() {
+  const router = useRouter();
   return (
     <footer className="bg-[#0C2D2C] relative overflow-hidden py-12 md:py-20">
       <div className="container mx-auto px-6 relative z-10">
@@ -99,12 +104,13 @@ export default function FooterSection() {
               >
                 Career
               </Link>
-              <Link
+              <a
                 href="/#demo"
-                className="text-gray-300 hover:text-white transition-colors text-base"
+                onClick={(e) => handleScrollToDemo(router, e)}
+                className="text-gray-300 hover:text-white transition-colors text-base cursor-pointer"
               >
                 Speak with us
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -316,12 +322,13 @@ export default function FooterSection() {
                 >
                   Career
                 </Link>
-                <Link
+                <a
                   href="/#demo"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
+                  onClick={(e) => handleScrollToDemo(router, e)}
+                  className="text-gray-300 hover:text-white transition-colors text-sm cursor-pointer"
                 >
                   Speak with us
-                </Link>
+                </a>
               </div>
             </div>
           </div>
