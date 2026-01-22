@@ -4,7 +4,10 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/sections/FooterSection";
-import { useGetCaseStudyBySlug, useGetRelatedCaseStudies } from "@/hooks/use-get-case-studies";
+import {
+  useGetCaseStudyBySlug,
+  useGetRelatedCaseStudies,
+} from "@/hooks/use-get-case-studies";
 
 export default function CaseStudyDetailPage() {
   const params = useParams();
@@ -37,7 +40,10 @@ export default function CaseStudyDetailPage() {
           <h1 className="text-4xl font-bold text-gray-900">
             Case study not found
           </h1>
-          <Link href="/case-studies" className="text-teal-500 hover:text-teal-600 mt-4 inline-block">
+          <Link
+            href="/case-studies"
+            className="text-teal-500 hover:text-teal-600 mt-4 inline-block"
+          >
             &larr; Back to Case Studies
           </Link>
         </div>
@@ -48,7 +54,9 @@ export default function CaseStudyDetailPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <Navbar />
+      <div className="bg-white shadow-sm">
+        <Navbar />
+      </div>
 
       {/* Hero Section */}
       <section className="bg-white py-16 md:py-24">
@@ -116,7 +124,9 @@ export default function CaseStudyDetailPage() {
                 <ul className="space-y-3">
                   {caseStudy.challenges?.map((item: string, index: number) => (
                     <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold flex-shrink-0">•</span>
+                      <span className="text-teal-500 font-bold shrink-0">
+                        •
+                      </span>
                       <span className="text-gray-600">{item}</span>
                     </li>
                   ))}
@@ -140,7 +150,7 @@ export default function CaseStudyDetailPage() {
                       <ul className="space-y-2">
                         {phase.items?.map((item: string, idx: number) => (
                           <li key={idx} className="flex gap-3 text-gray-700">
-                            <span className="text-teal-500 font-bold flex-shrink-0">
+                            <span className="text-teal-500 font-bold shrink-0">
                               •
                             </span>
                             <span>{item}</span>
@@ -160,7 +170,7 @@ export default function CaseStudyDetailPage() {
                 <ul className="space-y-3">
                   {caseStudy.impactItems?.map((item: string, index: number) => (
                     <li key={index} className="flex gap-3 text-gray-700">
-                      <span className="text-teal-500 font-bold flex-shrink-0">
+                      <span className="text-teal-500 font-bold shrink-0">
                         •
                       </span>
                       <span className="font-medium">{item}</span>
@@ -237,13 +247,17 @@ export default function CaseStudyDetailPage() {
                   <Link
                     key={study._id}
                     href={`/case-studies/${study.slug.current}`}
-                    className="group flex-shrink-0 w-[350px] md:w-[400px]"
+                    className="group shrink-0 w-87.5 md:w-100"
                   >
                     <div className="bg-white rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
                       {/* Image */}
                       <div className="aspect-video overflow-hidden">
                         <img
-                          src={study.cardImageUrl || study.heroImageUrl || "/case-study-img.svg"}
+                          src={
+                            study.cardImageUrl ||
+                            study.heroImageUrl ||
+                            "/case-study-img.svg"
+                          }
                           alt={study.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
