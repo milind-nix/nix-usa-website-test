@@ -134,7 +134,10 @@ export default function FooterSection() {
             <div>
               <h3 className="text-white font-semibold mb-2">United States</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                4100 Spring Valley Rd, Suite 935
+                4100 Spring Valley Rd,
+              </p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Suite 935,
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Dallas, TX 75244
@@ -153,17 +156,17 @@ export default function FooterSection() {
             <div>
               <h3 className="text-white font-semibold mb-2">India</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                428, Railway Line Road
+                Neuralix AI Pvt Ltd
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                NGEF Layout,
+                579, 32nd D Cross,10th Main Rd,
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Sadananda Nagar
+                4th Block, Jayanagar, Bengaluru, Karnataka 560011
               </p>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              {/* <p className="text-gray-400 text-sm leading-relaxed">
                 Bangalore, Karnataka - 560038
-              </p>
+              </p> */}
               {/* India Map SVG */}
               <div className="mt-4">
                 <img
