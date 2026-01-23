@@ -61,7 +61,7 @@ const useCases: UseCase[] = [
   },
   {
     id: "utilities",
-    title: "Utilities",
+    title: "UTILITIES",
     category: "Utilities",
     description:
       "AI-driven reliability and operational insights for distributed utility and power infrastructure.",

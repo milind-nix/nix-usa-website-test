@@ -25,7 +25,7 @@ export default function AboutPage() {
               To transform industrial operations with rapidly deployable AI
             </h1>
             <p className="text-xl md:text-2xl text-white font-normal">
-              Intelligent, Interpretable, Safe and Reliable at scale
+              Intelligent, Interpretable & Reliable at Scale
             </p>
           </div>
         </div>

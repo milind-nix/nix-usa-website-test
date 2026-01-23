@@ -64,7 +64,7 @@ const teamMembers: TeamMember[] = [
     name: "Valliappa Lakshmanan, PhD",
     title: "Product Advisor",
     image: "/team/Advisor-Lak.svg",
-    bio: "Valliappa is one of the leading minds in enterprise AI. He previously served as Head of Data Analytics & AI at Google Cloud and Director of Google’s Advanced Solutions Lab, and is now an operating executive at Silver Lake. He advises Neuralix on building scalable, secure, and enterprise-grade AI systems.",
+    bio: "Valliappa is one of the leading minds in enterprise AI. He previously served as Head of Data Analytics & AI at Google Cloud and Director of Google’s Advanced Solutions Lab, and is now an Operating Executive at Silver Lake. As Product Advisor to Neuralix, he brings deep expertise in translating advanced AI into scalable, secure, enterprise-grade products. He guides platform architecture and product rigor to ensure Neuralix’s solutions meet the standards of the world’s most demanding industrial customers.",
   },
   {
     id: "9",
@@ -170,10 +170,10 @@ export default function OurTeamPage() {
                 </div>
 
                 {/* Name and Title */}
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-3xl font-bold text-gray-900 mb-2">
                   {member.name}
                 </h3>
-                <p className="text-sm font-semibold text-gray-600 mb-4">
+                <p className="text-md font-semibold text-gray-600 mb-4">
                   {member.title}
                 </p>
 

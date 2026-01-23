@@ -11,7 +11,6 @@ export default function LogoCarousel() {
     { src: "/jsw-logo.png", alt: "JSW Steels", width: "w-32" },
     { src: "/patil-group-logo.png", alt: "Patil Group", width: "w-28" },
     { src: "/pilot-water-logo.png", alt: "Pilot Water", width: "w-28" },
-    { src: "/fervo-logo.png", alt: "Fervo Energy", width: "w-28" },
     { src: "/ExxonMobil-Logo.png", alt: "ExxonMobil", width: "w-28" },
   ];
 
