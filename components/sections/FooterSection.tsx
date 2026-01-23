@@ -109,7 +109,7 @@ export default function FooterSection() {
                 onClick={(e) => handleScrollToDemo(router, e)}
                 className="text-gray-300 hover:text-white transition-colors text-base cursor-pointer"
               >
-                Speak with us
+                Contact us
               </a>
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function FooterSection() {
                   onClick={(e) => handleScrollToDemo(router, e)}
                   className="text-gray-300 hover:text-white transition-colors text-sm cursor-pointer"
                 >
-                  Speak with us
+                  Contact us
                 </a>
               </div>
             </div>

@@ -33,7 +33,9 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
   const logo = showDarkStyle ? "/neuralix-dark-logo.svg" : "/neuralix-logo.png";
   const textColor = showDarkStyle ? "text-gray-900" : "text-white";
   const hoverBg = showDarkStyle ? "hover:bg-gray-100" : "hover:bg-white/10";
-  const hoverText = showDarkStyle ? "hover:text-teal-600" : "hover:text-teal-400";
+  const hoverText = showDarkStyle
+    ? "hover:text-teal-600"
+    : "hover:text-teal-400";
   const hamburgerColor = showDarkStyle ? "text-gray-900" : "text-white";
   const bgColor = showDarkStyle ? "bg-white shadow-sm" : "bg-transparent";
 
@@ -46,66 +48,65 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
 
   return (
     <>
-      <nav className={`sticky top-0 z-50 transition-all duration-300 ${bgColor}`}>
+      <nav
+        className={`sticky top-0 z-50 transition-all duration-300 ${bgColor}`}
+      >
         <div className="container mx-auto px-6 py-6">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <img src={logo} alt="Neuralix.ai" className="h-8 w-auto" />
-          </Link>
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <img src={logo} alt="Neuralix.ai" className="h-8 w-auto" />
+            </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-8">
-            <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
-              asChild
-            >
-              <Link href="/about">About</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
-              asChild
-            >
-              <Link href="/our-team">Our Team</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
-              asChild
-            >
-              <Link href="/case-studies">Case Studies</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
-              asChild
-            >
-              <Link href="/career">Career</Link>
-            </Button>
-            <Button
-              className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"
-              asChild
-            >
-              <a
-                href="/#demo"
-                onClick={(e) => handleScrollToDemo(router, e)}
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-8">
+              <Button
+                variant="ghost"
+                className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
+                asChild
               >
-                Speak with us
-              </a>
-            </Button>
-          </div>
+                <Link href="/about">About</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
+                asChild
+              >
+                <Link href="/our-team">Our Team</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
+                asChild
+              >
+                <Link href="/case-studies">Case Studies</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
+                asChild
+              >
+                <Link href="/career">Career</Link>
+              </Button>
+              <Button
+                className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"
+                asChild
+              >
+                <a href="/#demo" onClick={(e) => handleScrollToDemo(router, e)}>
+                  Contact us
+                </a>
+              </Button>
+            </div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            className={`lg:hidden p-2 ${hamburgerColor} transition-colors duration-300`}
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className={`lg:hidden p-2 ${hamburgerColor} transition-colors duration-300`}
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -155,7 +156,6 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                 </Link>
               ))}
 
-              {/* Speak with us Button */}
               <div className="pt-8">
                 <Button
                   className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-8 py-3 text-base"
@@ -169,7 +169,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                       handleScrollToDemo(router, e);
                     }}
                   >
-                    Speak with us
+                    Contact us
                   </a>
                 </Button>
               </div>

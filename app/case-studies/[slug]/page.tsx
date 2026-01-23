@@ -65,15 +65,15 @@ export default function CaseStudyDetailPage() {
             {/* Left - Title and Description with L-shaped borders */}
             <div className="relative">
               {/* Top-left L-shaped teal accent */}
-              <div className="absolute -top-4 -left-4 w-16 h-16">
-                <div className="absolute top-0 left-0 w-full h-4 bg-teal-500"></div>
-                <div className="absolute top-0 left-0 w-4 h-full bg-teal-500"></div>
+              <div className="absolute -top-4 -left-4 w-18 h-18">
+                <div className="absolute top-0 left-0 w-full h-3 bg-teal-500"></div>
+                <div className="absolute top-0 left-0 w-3 h-full bg-teal-500"></div>
               </div>
 
               {/* Bottom-right L-shaped teal accent */}
-              <div className="absolute -bottom-4 -right-4 w-24 h-16">
-                <div className="absolute bottom-0 right-0 w-full h-2 bg-teal-500"></div>
-                <div className="absolute bottom-0 right-0 w-2 h-full bg-teal-500"></div>
+              <div className="absolute -bottom-4 -right-4 w-18 h-18">
+                <div className="absolute bottom-0 right-0 w-full h-3 bg-teal-500"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-full bg-teal-500"></div>
               </div>
 
               <div className="pl-8 pt-8 pb-8 pr-8">
