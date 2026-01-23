@@ -26,7 +26,7 @@ export default function ImpactSection() {
     {
       id: 4,
       label: "Operational Cost Reduction",
-      value: "↓ in ROI",
+      value: "↑ in ROI",
       description: "",
     },
   ];
