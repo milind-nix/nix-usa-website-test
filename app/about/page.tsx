@@ -40,7 +40,7 @@ export default function AboutPage() {
               OUR VISION
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 leading-tight">
-              Architects of Industrial AI and data convergence.
+              Architects of industrial AI and data convergence.
             </h2>
           </div>
 
@@ -106,7 +106,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-medium text-gray-900 mb-3">
                 Early failure detection
               </h3>
-              <p className="text-gray-600 text-base">
+              <p className="text-teal-600 text-base font-medium">
                 Across rotating and static equipment
               </p>
             </div>
@@ -123,7 +123,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-medium text-gray-900 mb-3">
                 Reductions in downtime
               </h3>
-              <p className="text-gray-600 text-base">
+              <p className="text-teal-600 text-base font-medium">
                 Neuralix is able to showcase &gt;40% in utility cost savings due
                 to reduction in downtime
               </p>
@@ -141,7 +141,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-medium text-gray-900 mb-3">
                 Real-time digital twin models
               </h3>
-              <p className="text-gray-600 text-base">
+              <p className="text-teal-600 text-base font-medium">
                 For furnaces, pumps, compressors, water networks, and
                 distributed systems
               </p>
@@ -162,7 +162,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-medium text-gray-900 mb-3">
                 Enterprise pilots and multi-site rollouts
               </h3>
-              <p className="text-gray-600 text-base">
+              <p className="text-teal-600 text-base font-medium">
                 Across Fortune-100 scale operators
               </p>
             </div>

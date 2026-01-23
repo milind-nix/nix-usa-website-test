@@ -43,9 +43,9 @@ export default function ImpactSection() {
             <h2 className="text-2xl md:text-5xl font-medium text-gray-900 mt-2 md:mt-4 leading-tight">
               Are you still running Ops like it's 2015?
             </h2>
-            <p className="text-teal-600 md:text-gray-600 text-base md:text-lg mt-4 md:mt-6 max-w-5xl">
-              Enterprises that deployed Neuralix have shown remarkable outcomes
-              in their operational capabilities.
+            <p className="text-teal-600 md:text-gray-600 text-base md:text-lg mt-4 md:mt-6">
+              Enterprises that deployed Neuralix's award-winning platform have
+              shown remarkable outcomes in their operational capabilities.
             </p>
           </div>
 

@@ -135,9 +135,9 @@ export default function FooterSection() {
             {/* India */}
             <div>
               <h3 className="text-white font-semibold mb-2">India</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              {/* <p className="text-gray-400 text-sm leading-relaxed">
                 Neuralix AI Pvt Ltd
-              </p>
+              </p> */}
               <p className="text-gray-400 text-sm leading-relaxed">
                 579, 32nd D Cross,10th Main Rd,
               </p>
@@ -232,9 +232,9 @@ export default function FooterSection() {
                   {/* India */}
                   <div>
                     <h3 className="text-white font-semibold mb-4">India</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    {/* <p className="text-gray-400 text-sm leading-relaxed">
                       Neuralix AI Pvt Ltd
-                    </p>
+                    </p> */}
                     <p className="text-gray-400 text-sm leading-relaxed pr-1">
                       579, 32nd D Cross,10th Main Rd,
                     </p>
