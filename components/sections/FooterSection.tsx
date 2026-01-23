@@ -47,19 +47,13 @@ export default function FooterSection() {
             {/* Column 1 */}
             <div className="flex flex-col gap-4">
               <Link
-                href="#"
-                className="text-gray-300 hover:text-white transition-colors text-base"
-              >
-                Security
-              </Link>
-              <Link
-                href="#"
+                href="/terms-of-service"
                 className="text-gray-300 hover:text-white transition-colors text-base"
               >
                 Terms of Service
               </Link>
               <Link
-                href="#"
+                href="/privacy-policy"
                 className="text-gray-300 hover:text-white transition-colors text-base"
               >
                 Privacy Policy
@@ -265,19 +259,13 @@ export default function FooterSection() {
               {/* Right - Navigation Links - Column 1 */}
               <div className="flex flex-col gap-3">
                 <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white transition-colors text-sm"
-                >
-                  Security
-                </Link>
-                <Link
-                  href="#"
+                  href="/terms-of-service"
                   className="text-gray-300 hover:text-white transition-colors text-sm"
                 >
                   Terms of Service
                 </Link>
                 <Link
-                  href="#"
+                  href="/privacy-policy"
                   className="text-gray-300 hover:text-white transition-colors text-sm"
                 >
                   Privacy Policy

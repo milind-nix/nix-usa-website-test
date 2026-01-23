@@ -30,7 +30,10 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
 
   // Determine styles based on scroll state and variant
   const showDarkStyle = !isLight || isScrolled;
-  const logo = showDarkStyle ? "/neuralix-dark-logo.svg" : "/neuralix-logo.png";
+  const logo = showDarkStyle ? "/nix-full-icon.svg" : "/Footer-logo.svg";
+
+  const logoHeight = showDarkStyle ? "h-7" : "h-6";
+
   const textColor = showDarkStyle ? "text-gray-900" : "text-white";
   const hoverBg = showDarkStyle ? "hover:bg-gray-100" : "hover:bg-white/10";
   const hoverText = showDarkStyle
@@ -55,7 +58,11 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
-              <img src={logo} alt="Neuralix.ai" className="h-8 w-auto" />
+              <img
+                src={logo}
+                alt="Neuralix.ai"
+                className={`${logoHeight} w-auto transition-all duration-300`}
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -129,7 +136,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <img
-                  src="/neuralix-dark-logo.svg"
+                  src="/nix-full-icon.svg"
                   alt="Neuralix.ai"
                   className="h-8 w-auto"
                 />

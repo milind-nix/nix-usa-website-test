@@ -12,45 +12,45 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Vikram Jayram",
+    name: "Vikram Jayaram, PhD",
     title: "Founder & CEO",
     image: "/team/vikram.svg",
-    bio: "Dr. Vikram Jayaram is a pioneering AI and ML leader with over 2 decades advancing industrial-scale analytics across diverse sectors like energy and healthcare, including serving as Head of R&D & Data Science at Pioneer Natural Resources.",
+    bio: "Vikram is a pioneering AI and machine learning leader with over 2 decades of experience building and scaling industrial-grade analytics across energy, healthcare, and infrastructure. He previously served as Head of R&D and Data Science at Pioneer Natural Resources, where he led enterprise-wide AI initiatives. At Neuralix, Vikram sets the technical and strategic vision, ensuring the company delivers practical, production-ready AI with measurable operational and emissions impact.",
   },
   {
     id: "2",
     name: "Rohit Gangwal",
     title: "Co Founder",
     image: "/team/rohit-gangwal.svg",
-    bio: "Rohit provides strategic guidance to the company, focusing on operational execution, growth initiatives, and customer success. His role spans support in operations, fundraising, and financial management. Rohit is also the CEO and Managing Director at Edelweiss and served as Managing Director at Cosmos Granite and Marble, overseeing a $400M turnover.",
+    bio: "Rohit provides strategic leadership across operations, growth, fundraising, and financial management. He brings deep experience building and scaling businesses as CEO and Managing Director of Edelweiss and formerly as Managing Director at Cosmos Granite and Marble, where he oversaw a $400M operation. At Neuralix, Rohit focuses on execution discipline, capital strategy, and long-term value creation.",
   },
   {
     id: "3",
     name: "Annorah Lewis",
-    title: "Operations & Product",
+    title: "Chief of Staff",
     image: "/team/Annorah-Lewis.svg",
-    bio: "With a Computer Science foundation from Virginia Tech and executive business training from Harvard, Annorah drives operational excellence, product strategy, implementation, and impact across predictive maintenance, emissions reduction, and asset optimization.",
+    bio: "Annorah serves as Chief of Staff at Neuralix, leading operations and product strategy as the CEO’s right hand. Prior to Neuralix, Annorah led automation initiatives as a hardware and software engineer at a downstream fueling solutions company. At Neuralix, she drives execution across engineering, customers, and deployment - translating advanced AI into scalable, real‑world solutions for industrial operations. She brings a strong technical foundation in Computer Science from Virginia Tech and executive business training from Harvard Business School.",
   },
   {
     id: "4",
     name: "Heidi Higginson",
     title: "Engineering Manager",
     image: "/team/heidi.svg",
-    bio: "B.S. in Petroleum Engineering from UT Austin, bringing extensive experience across oil & gas operations, saltwater disposal, lease operations, and well injection forecasting from roles at Diamondback, Marathon Oil, and Enverus.",
+    bio: "Heidi has over a decade of extensive field and operational experience across oil & gas - her background spans saltwater disposal, lease operations, and well injection forecasting, with prior roles at Diamondback, Marathon Oil, and Enverus. At Neuralix, she ensures engineering solutions are grounded in operational reality and built for reliability at scale. Heidi holds a B.S. in Petroleum Engineering from The University of Texas at Austin.",
   },
   {
     id: "5",
     name: "Abhishek Kothari",
     title: "Product Engineering Lead",
     image: "/team/Abhishek-Kothari.svg",
-    bio: "Abhishek leads product engineering at Neuralix, translating complex industrial use cases into scalable, cloud-native software and ML systems. He brings hands-on experience building production-grade platforms across industrial operations, data infrastructure, and enterprise systems.",
+    bio: "Abhishek leads product engineering at Neuralix, translating complex industrial workflows into scalable, cloud-native software and machine learning systems. He brings hands-on experience building production-grade platforms across industrial operations, data infrastructure, and enterprise environments. His work ensures Neuralix’s technology is robust, extensible, and enterprise-ready.",
   },
   {
     id: "6",
     name: "Fatimah Bello",
     title: "Business Development Advisor",
     image: "/team/Fatimah.svg",
-    bio: "Fatimah brings deep experience in industrial energy, infrastructure, and climate-tech commercialization, advising companies on market entry, partnerships, and growth strategy. She has led business development and investment initiatives across energy transition, mining, and industrial innovation platforms.",
+    bio: "Fatimah brings deep experience in industrial energy, infrastructure, and climate-tech commercialization. She has led business development and investment initiatives across energy transition, mining, and industrial innovation platforms. At Neuralix, she advises on market entry, partnerships, and growth strategy.",
   },
   {
     id: "7",
@@ -61,24 +61,24 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "8",
-    name: "Dr. Valliappa Lakshmanan",
-    title: "Technology Advisor",
+    name: "Valliappa Lakshmanan, PhD",
+    title: "Product Advisor",
     image: "/team/Advisor-Lak.svg",
-    bio: "Dr. Valliappa Lakshmanan is one of the leading minds in enterprise AI; formerly Head of Data Analytics & AI at Google Cloud and Director of Google's Advanced Solutions Lab. Now an operating executive at Silver Lake, he guides Neuralix to ensure our AI remains cutting-edge, scalable, and enterprise-ready.",
-  },
-  {
-    id: "10",
-    name: "Dr. Deepak Devegowda",
-    title: "O&G Advisor",
-    image: "/team/Advisor-Deepak.svg",
-    bio: "A Professor and Mewbourne Chair at the University of Oklahoma, Deepak specializes in reservoir engineering and energy innovation. His technical expertise supports Neuralix's mission to advance energy solutions.",
+    bio: "Valliappa is one of the leading minds in enterprise AI. He previously served as Head of Data Analytics & AI at Google Cloud and Director of Google’s Advanced Solutions Lab, and is now an operating executive at Silver Lake. He advises Neuralix on building scalable, secure, and enterprise-grade AI systems.",
   },
   {
     id: "9",
     name: "Carrie Reese",
     title: "Sustainability Advisor",
     image: "/team/Advisor-Carrie-reese.svg",
-    bio: "Carrie Reese is a nationally recognized sustainability executive with 15+ years leading ESG, decarbonization, and climate strategy, including as Sustainable Development Director at ExxonMobil. As Sustainability Advisor to Neuralix, she guides the development of AI-powered emissions tracking and reporting systems that are fast, verifiable, and investor-grade ESG outcomes for industrial and energy customers.",
+    bio: "Carrie is a nationally recognized sustainability executive with over 15 years of experience leading ESG, decarbonization, and climate strategy, including as Sustainable Development Director at ExxonMobil. As Sustainability Advisor to Neuralix, she guides the development of AI-powered emissions tracking and reporting solutions that deliver fast, verifiable, and investor-grade ESG outcomes for industrial and energy customers.",
+  },
+  {
+    id: "10",
+    name: "Deepak Devegowda, PhD",
+    title: "Research & Academia",
+    image: "/team/Advisor-Deepak.svg",
+    bio: "A Professor and Mewbourne Chair at the University of Oklahoma, Deepak specializes in reservoir engineering and energy innovation. His technical expertise supports Neuralix's mission to advance energy solutions.",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function OurTeamPage() {
           <img
             src="/team-hero.png"
             alt="The minds behind the next generation of industrial intelligence"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-50"
           />
         </div>
 

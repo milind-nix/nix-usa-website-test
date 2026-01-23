@@ -25,9 +25,9 @@ export default function ImpactSection() {
     },
     {
       id: 4,
-      label: "Energy Consumption",
-      value: "25% ↑",
-      description: "Efficient",
+      label: "Operational Cost Reduction",
+      value: "↓ in ROI",
+      description: "",
     },
   ];
 
@@ -65,7 +65,9 @@ export default function ImpactSection() {
           {metrics.map((metric, index) => (
             <div
               key={metric.id}
-              className={`py-6 ${index < metrics.length - 1 ? "border-b border-gray-200" : ""}`}
+              className={`py-6 ${
+                index < metrics.length - 1 ? "border-b border-gray-200" : ""
+              }`}
             >
               <p className="text-gray-600 text-sm mb-2 font-medium">
                 {metric.label}
@@ -74,7 +76,8 @@ export default function ImpactSection() {
                 {metric.value}
                 {metric.description && (
                   <span className="text-3xl font-medium text-[#0A2540]">
-                    {" "}{metric.description}
+                    {" "}
+                    {metric.description}
                   </span>
                 )}
               </h3>
