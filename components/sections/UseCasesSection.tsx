@@ -91,9 +91,9 @@ export default function UseCasesSection() {
                 USE CASES
               </span>
               <h2 className="text-3xl md:text-5xl font-medium text-gray-900 mt-2">
-                Industries where Impact
+                Industries where impact
                 <br className="hidden md:block" />
-                <span className="md:hidden"> </span>is Tangible
+                <span className="md:hidden"> </span>is tangible
               </h2>
               {/* Mobile: Show active category title */}
               <h3 className="md:hidden text-xl font-bold text-[#0A2540] mt-4">
