@@ -71,9 +71,9 @@ export default function CareerPage() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/career-hero.png"
+            src="/career-hero.jpg"
             alt="Discover your place at Neuralix"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-50"
           />
         </div>
 

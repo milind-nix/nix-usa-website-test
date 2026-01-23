@@ -54,10 +54,10 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "7",
-    name: "Stepahnie",
-    title: "People Operations",
-    image: "/team/sarita.svg",
-    bio: "Sarita is a strategic leader in HR and operations, dedicated to fostering growth and a people-centric culture. She aligns Neuralix's talent strategies with business goals, supporting its mission of innovation and sustainability.",
+    name: "Stephanie Stewart",
+    title: "E&P Advisor",
+    image: "/team/Stephanie_Stewart.png",
+    bio: "Stephanie provides strategic guidance to Neuralix, drawing on over 20 years of executive leadership across energy technology and data organizations. She most recently served as Vice President and Chief Information Officer at Pioneer Natural Resources, leading enterprise data and digital transformation initiatives prior to the company’s acquisition by ExxonMobil. Stephanie previously held senior analytics and technology leadership roles at Devon Energy, Williams Energy, and BP Amoco.",
   },
   {
     id: "8",

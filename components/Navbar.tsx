@@ -43,7 +43,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
     { href: "/about", label: "About" },
     { href: "/our-team", label: "Our Team" },
     { href: "/case-studies", label: "Case Studies" },
-    { href: "/career", label: "Career" },
+    { href: "/career", label: "Careers" },
   ];
 
   return (
@@ -86,7 +86,7 @@ export default function Navbar({ variant = "dark" }: NavbarProps) {
                 className={`${textColor} ${hoverText} ${hoverBg} transition-colors duration-300`}
                 asChild
               >
-                <Link href="/career">Career</Link>
+                <Link href="/career">Careers</Link>
               </Button>
               <Button
                 className="bg-teal-500 hover:bg-teal-600 text-white rounded-lg px-6"

@@ -36,7 +36,7 @@ export default function LogoCarousel() {
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className="w-full h-auto"
+                className="w-full h-auto "
                 loading="eager"
               />
             </div>

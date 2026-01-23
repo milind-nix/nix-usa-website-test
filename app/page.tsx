@@ -76,7 +76,7 @@ export default function LandingPage() {
               onClick={scrollToDemo}
               className="flex items-center gap-2"
             >
-              Speak with us
+              Free Expert Consultation
               <div className="bg-white/20 p-1 rounded-md">
                 <ArrowUpRight className="w-5 h-5" />
               </div>

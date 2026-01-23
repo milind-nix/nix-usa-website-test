@@ -102,7 +102,7 @@ export default function FooterSection() {
                 href="/career"
                 className="text-gray-300 hover:text-white transition-colors text-base"
               >
-                Career
+                Careers
               </Link>
               <a
                 href="/#demo"
@@ -320,7 +320,7 @@ export default function FooterSection() {
                   href="/career"
                   className="text-gray-300 hover:text-white transition-colors text-sm"
                 >
-                  Career
+                  Careers
                 </Link>
                 <a
                   href="/#demo"
