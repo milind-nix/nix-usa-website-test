@@ -62,7 +62,7 @@ export default function FooterSection() {
                 href="mailto:info@neuralix.ai"
                 className="text-teal-400 hover:text-teal-300 transition-colors text-base"
               >
-                info@neuralix.ai,
+                info@neuralix.ai
               </Link>
             </div>
 
